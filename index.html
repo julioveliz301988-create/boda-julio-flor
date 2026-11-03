@@ -165,12 +165,13 @@ button.wa{cursor:pointer;font-family:var(--sans)}
 .tel input{flex:1;border:0;outline:none;padding:13px 12px;font-size:18px;font-family:var(--sans);min-width:0;color:var(--ink)}
 .tel.err{border-color:#e8a29b;box-shadow:0 0 0 3px rgba(232,162,155,.45);animation:shake .35s}
 #wd .wa{margin-top:16px}
+#wd .thanks{padding-bottom:22px}
+#wd .opt{font-family:var(--sans);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--soft);margin:4px 0 8px}
 #wd .thanks .ok{width:58px;height:58px;margin:0 auto 6px;border-radius:50%;background:var(--olive);color:#fff;font-size:30px;line-height:58px;animation:pop .35s ease}
 #wd .thanks p{margin-bottom:14px}
-#wd .loader{height:4px;border-radius:4px;background:#e6e0cf;overflow:hidden}
-#wd .loader i{display:block;height:100%;width:0;background:var(--gold);animation:fill 1s linear forwards}
-@keyframes fill{to{width:100%}}
-#wd .calbtn{display:inline-block;margin-top:14px;font-family:var(--sans);font-size:12px;letter-spacing:.08em;color:var(--olive);text-decoration:underline}
+#wd .calbtn{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 14px;border-radius:12px;border:1px solid #dadce0;background:#fff;color:#3c4043;text-decoration:none;font-family:var(--sans);font-size:13px;font-weight:500;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:.2s}
+#wd .calbtn:hover{box-shadow:0 3px 10px rgba(0,0,0,.15)}
+#wd .calbtn svg{width:24px;height:24px;flex:none}
 .hint{font-family:var(--sans);font-size:11px;color:#cfd2bf;margin:8px 0 0;text-align:center;letter-spacing:.04em}
 .sent{display:none;margin-top:14px;text-align:center;font-size:17px;color:#e3e2d3}
 .sent.on{display:block}
@@ -315,7 +316,7 @@ footer{text-align:center;padding:26px;font-family:var(--sans);font-size:10px;let
         <div><b id="cdM">--</b><small>Min</small></div>
         <div><b id="cdS">--</b><small>Seg</small></div>
       </div>
-      <a class="btn" id="cal" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda%20de%20Julio%20y%20Flor&dates=20270130T203000Z/20270131T050000Z&location=Parroquia%20Nuestra%20Se%C3%B1ora%20de%20la%20Alegr%C3%ADa%2C%20San%20Borja%2C%20Lima&details=Ceremonia%3A%203%3A30%20p.m.%20%E2%80%94%20Parroquia%20Nuestra%20Se%C3%B1ora%20de%20la%20Alegr%C3%ADa%20(San%20Borja)%0ARecepci%C3%B3n%3A%205%3A00%20p.m.%20%E2%80%94%20Casa%20Lago%20(Chorrillos)%0AVestimenta%3A%20Elegante">
+      <a class="btn" id="cal" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Boda%20de%20Julio%20y%20Flor%20%F0%9F%92%8D&amp;dates=20270130T153000/20270131T000000&amp;ctz=America%2FLima&amp;location=Parroquia%20Nuestra%20Se%C3%B1ora%20de%20la%20Alegr%C3%ADa%2C%20San%20Borja%2C%20Lima&amp;details=Ceremonia%3A%203%3A30%20p.m.%20%E2%80%94%20Parroquia%20Nuestra%20Se%C3%B1ora%20de%20la%20Alegr%C3%ADa%20%28San%20Borja%29%0Ahttps%3A%2F%2Fmaps.app.goo.gl%2FxxZ6bifUzqJgA6hS7%0A%0ARecepci%C3%B3n%3A%205%3A00%20p.m.%20%E2%80%94%20Casa%20Lago%20%28Chorrillos%29%0Ahttps%3A%2F%2Fmaps.app.goo.gl%2F5wvsPaziwVs9UwDB7%0A%0AVestimenta%3A%20Elegante">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>
         Agendar fecha
       </a>
@@ -433,11 +434,15 @@ footer{text-align:center;padding:26px;font-family:var(--sans);font-size:10px;let
     <a class="wa" id="wa" href="#" target="_blank" rel="noopener">Enviar confirmación</a>
   </div>
   <div class="box thanks" id="thanks" hidden>
+    <button class="x" id="thx" aria-label="Cerrar">×</button>
     <div class="ok">✓</div>
     <h4>¡Gracias!</h4>
-    <p>Tu asistencia quedó registrada.<br>Ahora guarda la fecha en tu calendario…</p>
-    <div class="loader"><i></i></div>
-    <a class="calbtn" id="calgo" href="#">Agregar a mi Google Calendar</a>
+    <p>Ya estás registrado(a). ¡Te esperamos!</p>
+    <div class="opt">Opcional</div>
+    <a class="calbtn" id="calgo" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5" fill="#fff" stroke="#4285F4" stroke-width="1.6"/><path d="M3 9h18" stroke="#4285F4" stroke-width="1.6"/><rect x="3" y="4.5" width="18" height="4.5" rx="2.5" fill="#4285F4"/><path d="M8 2.8v3.4M16 2.8v3.4" stroke="#34A853" stroke-width="1.8" stroke-linecap="round"/><text x="12" y="18.6" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="8" fill="#EA4335">30</text></svg>
+      Agregar a Google Calendar
+    </a>
   </div>
 </div>
 
@@ -511,6 +516,7 @@ footer{text-align:center;padding:26px;font-family:var(--sans);font-size:10px;let
     refresh();$('wd').classList.add('on');setTimeout(()=>$('tel').focus(),250);
   });
   $('wdx').addEventListener('click',()=>$('wd').classList.remove('on'));
+  $('thx').addEventListener('click',()=>$('wd').classList.remove('on'));
   $('wd').addEventListener('click',e=>{if(e.target===$('wd'))$('wd').classList.remove('on');});
   $('tel').addEventListener('input',()=>{$('telw').classList.remove('err');});
   $('wa').addEventListener('click',e=>{
@@ -525,7 +531,6 @@ footer{text-align:center;padding:26px;font-family:var(--sans);font-size:10px;let
     setTimeout(()=>{
       document.querySelector('#wd .box:not(.thanks)').hidden=true;
       $('thanks').hidden=false;$('sent').classList.add('on');
-      setTimeout(()=>{try{window.location.href=CAL;}catch(err){}},1000);
     },350);
   });
   refresh();
