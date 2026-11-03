@@ -165,6 +165,12 @@ button.wa{cursor:pointer;font-family:var(--sans)}
 .tel input{flex:1;border:0;outline:none;padding:13px 12px;font-size:18px;font-family:var(--sans);min-width:0;color:var(--ink)}
 .tel.err{border-color:#e8a29b;box-shadow:0 0 0 3px rgba(232,162,155,.45);animation:shake .35s}
 #wd .wa{margin-top:16px}
+#wd .thanks .ok{width:58px;height:58px;margin:0 auto 6px;border-radius:50%;background:var(--olive);color:#fff;font-size:30px;line-height:58px;animation:pop .35s ease}
+#wd .thanks p{margin-bottom:14px}
+#wd .loader{height:4px;border-radius:4px;background:#e6e0cf;overflow:hidden}
+#wd .loader i{display:block;height:100%;width:0;background:var(--gold);animation:fill 1s linear forwards}
+@keyframes fill{to{width:100%}}
+#wd .calbtn{display:inline-block;margin-top:14px;font-family:var(--sans);font-size:12px;letter-spacing:.08em;color:var(--olive);text-decoration:underline}
 .hint{font-family:var(--sans);font-size:11px;color:#cfd2bf;margin:8px 0 0;text-align:center;letter-spacing:.04em}
 .sent{display:none;margin-top:14px;text-align:center;font-size:17px;color:#e3e2d3}
 .sent.on{display:block}
@@ -309,7 +315,7 @@ footer{text-align:center;padding:26px;font-family:var(--sans);font-size:10px;let
         <div><b id="cdM">--</b><small>Min</small></div>
         <div><b id="cdS">--</b><small>Seg</small></div>
       </div>
-      <a class="btn" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda%20de%20Julio%20y%20Flor&dates=20270130T203000Z/20270131T050000Z&location=Parroquia%20Nuestra%20Se%C3%B1ora%20de%20la%20Alegr%C3%ADa%2C%20San%20Borja%2C%20Lima&details=Ceremonia%3A%203%3A30%20p.m.%20%E2%80%94%20Parroquia%20Nuestra%20Se%C3%B1ora%20de%20la%20Alegr%C3%ADa%20(San%20Borja)%0ARecepci%C3%B3n%3A%205%3A00%20p.m.%20%E2%80%94%20Casa%20Lago%20(Chorrillos)%0AVestimenta%3A%20Elegante">
+      <a class="btn" id="cal" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda%20de%20Julio%20y%20Flor&dates=20270130T203000Z/20270131T050000Z&location=Parroquia%20Nuestra%20Se%C3%B1ora%20de%20la%20Alegr%C3%ADa%2C%20San%20Borja%2C%20Lima&details=Ceremonia%3A%203%3A30%20p.m.%20%E2%80%94%20Parroquia%20Nuestra%20Se%C3%B1ora%20de%20la%20Alegr%C3%ADa%20(San%20Borja)%0ARecepci%C3%B3n%3A%205%3A00%20p.m.%20%E2%80%94%20Casa%20Lago%20(Chorrillos)%0AVestimenta%3A%20Elegante">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>
         Agendar fecha
       </a>
@@ -426,6 +432,13 @@ footer{text-align:center;padding:26px;font-family:var(--sans);font-size:10px;let
     <div class="tel" id="telw"><span>+51</span><input type="tel" id="tel" inputmode="tel" placeholder="9XX XXX XXX" maxlength="15" autocomplete="tel"></div>
     <a class="wa" id="wa" href="#" target="_blank" rel="noopener">Enviar confirmación</a>
   </div>
+  <div class="box thanks" id="thanks" hidden>
+    <div class="ok">✓</div>
+    <h4>¡Gracias!</h4>
+    <p>Tu asistencia quedó registrada.<br>Ahora guarda la fecha en tu calendario…</p>
+    <div class="loader"><i></i></div>
+    <a class="calbtn" id="calgo" href="#">Agregar a mi Google Calendar</a>
+  </div>
 </div>
 
 <div id="lb"><button aria-label="Cerrar">×</button><img alt=""></div>
@@ -507,7 +520,13 @@ footer{text-align:center;padding:26px;font-family:var(--sans);font-size:10px;let
     if(SCRIPT_URL.indexOf('https://')===0){
       try{fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({nombre:$('nm').value.trim(),acompanantes:acomp,lado:lado,whatsapp:wsp})}).catch(()=>{});}catch(err){}
     }
-    setTimeout(()=>{$('wd').classList.remove('on');$('sent').classList.add('on');},300);
+    const CAL=$('cal').href;
+    $('calgo').href=CAL;
+    setTimeout(()=>{
+      document.querySelector('#wd .box:not(.thanks)').hidden=true;
+      $('thanks').hidden=false;$('sent').classList.add('on');
+      setTimeout(()=>{try{window.location.href=CAL;}catch(err){}},1000);
+    },350);
   });
   refresh();
 
